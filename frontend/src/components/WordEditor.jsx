@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { renderAsync } from 'docx-preview'
-
-const API_BASE = '/api'
+import { API_BASE_URL, API_ENDPOINTS } from '../config/api'
 
 export default function WordEditor({ fileContent, companies, onFileSaved, onCompanyAdded }) {
     const [selectedCompany, setSelectedCompany] = useState('')
@@ -30,7 +29,7 @@ export default function WordEditor({ fileContent, companies, onFileSaved, onComp
 
             // Binary dosyayı al
             const response = await axios.get(
-                `${API_BASE}/file/${fileContent.filename}/raw`,
+                `${API_BASE_URL}/api/file/${fileContent.filename}/raw`,
                 { responseType: 'blob' }
             )
 
@@ -69,7 +68,7 @@ export default function WordEditor({ fileContent, companies, onFileSaved, onComp
         setSaving(true)
         try {
             // Sadece boş bir content gönder - backend template'i kopyalayacak
-            await axios.post(`${API_BASE}/save`, {
+            await axios.post(API_ENDPOINTS.fileSave, {
                 filename: fileContent.filename,
                 company: selectedCompany,
                 type: 'word',
@@ -94,7 +93,7 @@ export default function WordEditor({ fileContent, companies, onFileSaved, onComp
         }
 
         try {
-            await axios.post(`${API_BASE}/companies`, { name: newCompanyName })
+            await axios.post(API_ENDPOINTS.companies, { name: newCompanyName })
             setShowNewCompanyModal(false)
             setNewCompanyName('')
             setSelectedCompany(newCompanyName)

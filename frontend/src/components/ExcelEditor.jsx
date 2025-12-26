@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-
-const API_BASE = '/api'
+import { API_ENDPOINTS } from '../config/api'
 
 export default function ExcelEditor({ fileContent, companies, onFileSaved, onCompanyAdded }) {
     const [sheets, setSheets] = useState(fileContent.sheets || {})
@@ -36,7 +35,7 @@ export default function ExcelEditor({ fileContent, companies, onFileSaved, onCom
 
         setSaving(true)
         try {
-            await axios.post(`${API_BASE}/save`, {
+            await axios.post(API_ENDPOINTS.fileSave, {
                 filename: fileContent.filename,
                 company: selectedCompany,
                 type: 'excel',
@@ -61,7 +60,7 @@ export default function ExcelEditor({ fileContent, companies, onFileSaved, onCom
         }
 
         try {
-            await axios.post(`${API_BASE}/companies`, { name: newCompanyName })
+            await axios.post(API_ENDPOINTS.companies, { name: newCompanyName })
             setShowNewCompanyModal(false)
             setNewCompanyName('')
             setSelectedCompany(newCompanyName)

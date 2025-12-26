@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import axios from 'axios'
+import { API_ENDPOINTS } from '../config/api'
 
-const API_BASE = '/api'
 
 export default function Sidebar({
     templates,
@@ -33,11 +33,12 @@ export default function Sidebar({
 
         setUploading(true)
         try {
-            await axios.post(`${API_BASE}/upload`, formData, {
+            await axios.post(API_ENDPOINTS.upload, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             })
+
             onFileUploaded()
             // Input'u temizle
             if (fileInputRef.current) {
