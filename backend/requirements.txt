@@ -5,3 +5,4 @@ openpyxl==3.1.5
 python-docx==1.1.2
 pandas==2.2.3
 aiofiles==24.1.0
+gunicorn==21.2.0
