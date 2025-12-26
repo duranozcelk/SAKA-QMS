@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-900 text-dark-50 font-sans antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-2.5 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-medium rounded-lg hover:from-primary-700 hover:to-primary-600 transition-all duration-200 shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-2.5 bg-dark-800 text-dark-100 font-medium rounded-lg border border-dark-700 hover:bg-dark-700 hover:border-dark-600 transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .card {
+    @apply bg-dark-800 border border-dark-700 rounded-xl p-6 shadow-lg;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2.5 bg-dark-900 border border-dark-700 rounded-lg text-dark-100 placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
+  }
+
+  .select-field {
+    @apply w-full px-4 py-2.5 bg-dark-900 border border-dark-700 rounded-lg text-dark-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent;
+  }
+
+  .glass-morphism {
+    @apply bg-dark-800/50 backdrop-blur-xl border border-dark-700/50;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-dark-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-dark-600;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(to right, #1e293b 4%, #334155 25%, #1e293b 36%);
+  background-size: 1000px 100%;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out;
+}
+
+/* Print Styles for Excel */
+@media print {
+
+  /* Hide all UI elements except the table */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Reset body and html for printing */
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+
+  /* Make the Excel print area and all its children visible */
+  #excel-print-area,
+  #excel-print-area * {
+    visibility: visible !important;
+  }
+
+  /* Position and style the print area */
+  #excel-print-area {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    background: white !important;
+    padding: 10px !important;
+  }
+
+  /* Remove overflow restrictions from all containers */
+  .overflow-auto {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  /* Ensure flex containers don't restrict height */
+  .flex,
+  .flex-col {
+    height: auto !important;
+  }
+
+  /* Table styling */
+  table {
+    width: 100% !important;
+    page-break-inside: auto;
+    border-collapse: collapse !important;
+  }
+
+  tbody {
+    display: table-row-group !important;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  td {
+    page-break-inside: avoid;
+    padding: 4px !important;
+  }
+
+  /* Make input fields look like normal text */
+  td input {
+    border: none !important;
+    background: transparent !important;
+    padding: 2px 4px !important;
+    color: #000 !important;
+  }
+
+  /* Keep cell borders */
+  table,
+  td {
+    border: 1px solid #000 !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: landscape;
+    margin: 0.5cm;
+  }
+}
+
+/* docx-preview Styles */
+.docx-wrapper {
+  background: white;
+  padding: 0;
+  color: #000;
+}
+
+.docx-wrapper section.docx {
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 2.54cm;
+  min-height: 29.7cm;
+  width: 21cm;
+}
+
+.docx-wrapper table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.docx-wrapper table td,
+.docx-wrapper table th {
+  border: 1px solid #000;
+  padding: 4px 8px;
+}
+
+.docx-wrapper p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.15;
+}
+
+/* Dark theme compatibility */
+.docx-preview-container {
+  background: white;
+  border-radius: 4px;
+  overflow: visible;
+}
+
+/* Editable mode styles */
+.editable-paragraph,
+.editable-cell {
+  cursor: text;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+}
+
+.editable-paragraph:hover,
+.editable-cell:hover {
+  background-color: #eff6ff !important;
+  outline: 1px dashed #3b82f6;
+}
+
+.editable-paragraph:focus,
+.editable-cell:focus {
+  background-color: #fff !important;
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.editable-paragraph:focus-visible,
+.editable-cell:focus-visible {
+  outline: 2px solid #3b82f6;
+}

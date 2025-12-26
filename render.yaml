@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: saka-qms-backend
+    env: python
+    region: frankfurt  # EU bölgesi, Türkiye'ye yakın
+    plan: free
+    branch: main
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: ALLOWED_ORIGINS
+        value: "https://your-app.vercel.app"  # Vercel URL'inizi buraya yazın (deployment sonrası güncelleyin)
+    healthCheckPath: /health
